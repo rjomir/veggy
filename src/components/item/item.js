@@ -1,6 +1,7 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles/index'
 import Button from '@material-ui/core/es/Button/Button'
+import Counter from '../counter/counter'
 
 const styles = {
     item: {
@@ -36,7 +37,7 @@ function Item({ product, classes }){
                       />
                       <span> {product.name} </span>
                       <span> {product.price} lei </span>
-                     
+                      <Counter />
                       <Button
                           variant="contained"
                           color="primary"
@@ -44,7 +45,9 @@ function Item({ product, classes }){
                       >
                           Add To Cart
                       </Button>
+             
         </div>
+
     )
 }
 
