@@ -19,21 +19,25 @@ const styles = {
     }
 }
 
-const Layout = ({ classes }) => (
-    <Fragment>
-            <Header/>
+const Layout = props => { 
+    const { classes, ...otherProps } = props
+
+    console.log(otherProps)
+
+    return (<Fragment>
+            <Header { ...otherProps }/>
             <BrowserRouter>
                 <Switch>
                     <Route render={()=>
                         <div className={ classes.listWrapper }>
-                            <ProductList />
+                            <ProductList { ...otherProps }/>
                         </div>
                     } exact path="/" />
                     <Route path="/product/:id" component={ ProductDetails }/>
                 </Switch>  
             </BrowserRouter>
             <Footer/>
-    </Fragment>
-)
+    </Fragment>)
+}
 
 export default withStyles(styles)(Layout)

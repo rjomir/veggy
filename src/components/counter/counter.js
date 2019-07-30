@@ -25,57 +25,25 @@ const styles = {
   }
 }
 
-class Counter extends React.Component{
+const Counter = ({ classes, currentValue, onIncrement, setNewValue, onDecrement }) =>
+ (
+    <div className={ classes.counterWrapper }>
+    <button
+        className={ classes.button }
+        onClick={ onIncrement }>+</button>
+    <input
+        className={ classes.input }
+        type="number"
+        value={ currentValue }
 
-    constructor(props){
-        super(props)
+        products
 
-        this.state = {
-            currentValue: 1
-        }
-    }
-   
-    setNewValue = ({ target: value }) => {
-        this.setState({
-            currentValue : value
-        })
-    }
- 
-  onIncrement = () => {    
-    this.setState({
-        currentValue: this.state.currentValue + 1
-    })
-  }
-
-  onDecrement = () => {
-    this.setState({
-        currentValue: this.state.currentValue - 1
-    })
-  }
-
-  render(){
-    const { classes } = this.props
-
-    return (
-            <div className={ classes.counterWrapper }>
-            <button
-                className={ classes.button }
-                onClick={ this.onIncrement }>+</button>
-            <input
-                className={ classes.input }
-                type="number"
-                value={ this.state.currentValue }
-
-                products
-
-                onChange={ this.setNewValue }
-            />
-            <button
-                className={ classes.button }
-                onClick={ this.onDecrement }>-</button>
-            </div>
-        )
-  }
-}
+        onChange={ setNewValue }
+    />
+    <button
+        className={ classes.button }
+        onClick={ onDecrement }>-</button>
+    </div>
+)
 
 export default withStyles(styles)(Counter)

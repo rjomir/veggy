@@ -35,7 +35,7 @@ class ProductList extends React.Component {
             {
                 this.state.products.map(product => (
                     <Grid key={product.id} item xs={3} >
-                        <Item product={product}/>
+                        <Item cartItems={this.props.cartItems} updateState={this.props.updateState} product={product}/>
                     </Grid>
                 ))
             }
