@@ -19,7 +19,7 @@ const styles = {
     }
 }
 
-const Layout = props => { 
+const Layout = props => {
     const { classes, ...otherProps } = props
 
     console.log(otherProps)
@@ -33,8 +33,10 @@ const Layout = props => {
                             <ProductList { ...otherProps }/>
                         </div>
                     } exact path="/" />
-                    <Route path="/product/:id" component={ ProductDetails }/>
-                </Switch>  
+                    <Route path="/product/:id" render={(params) =>
+                     <ProductDetails { ...otherProps } { ...params} />
+                    } />
+                </Switch>
             </BrowserRouter>
             <Footer/>
     </Fragment>)

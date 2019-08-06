@@ -1,6 +1,9 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles/index'
 import Button from '@material-ui/core/es/Button/Button'
+import Link from "@material-ui/core/Link";
+import { Link as RouterLink } from 'react-router-dom'
+
 import Counter from '../counter/counter'
 
 const styles = {
@@ -51,7 +54,7 @@ class Item extends React.Component {
       })
   }
 
-  onIncrement = () => {    
+  onIncrement = () => {
     this.setState({
         currentValue: this.state.currentValue + 1
     })
@@ -69,29 +72,33 @@ class Item extends React.Component {
     const { name, price, image } = product
 
     return(
-        <div  className={classes.item}>
-        <img src={image}
-                           alt={name}
-                           width="200"
-                           height="200"
-                      />
-                      <span> {name} </span>
-                      <span> {price} lei </span>
-                      <Counter 
-                        currentValue={currentValue} 
-                        setNewValue={this.setNewValue} 
-                        onIncrement={this.onIncrement} 
-                        onDecrement={this.onDecrement}
-                      />
-                      <Button
-                          variant="contained"
-                          color="primary"
-                          style={{marginTop: '15px'}}
-                          onClick={() => this.handleClick(product)}
-                      >
-                          Add To Cart
-                      </Button>
-             
+        <div className={classes.item}>
+          <Link component={RouterLink} to={`/product/${product.id}`}>
+            <img
+              src={image}
+              alt={name}
+              width="200"
+              height="200"
+            />
+          </Link>
+          <Link component={RouterLink} to={`/product/${product.id}`}>
+            <span> {name} </span>
+          </Link>
+          <span> {price} lei </span>
+          <Counter
+            currentValue={currentValue}
+            setNewValue={this.setNewValue}
+            onIncrement={this.onIncrement}
+            onDecrement={this.onDecrement}
+          />
+          <Button
+              variant="contained"
+              color="primary"
+              style={{marginTop: '15px'}}
+              onClick={() => this.handleClick(product)}
+          >
+              Add To Cart
+          </Button>
         </div>
 
     )
