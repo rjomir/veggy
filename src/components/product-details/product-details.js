@@ -2,18 +2,19 @@ import React from 'react'
 import Grid from "@material-ui/core/Grid";
 
 class ProductDetails extends React.Component {
-  state = {
-    product: null,
-    isEditEnabled: false
-  }
+  constructor(props) {
+    super(props)
 
-  componentDidUpdate(prevProps) {
-    const { match, products } = this.props;
-    const { params: { id } } = match;
+    if (props) {
+      const { match, products } = props;
+      const { params: { id } } = match;
 
-    if (products !== prevProps.products) {
       const product = products.find(p => p.id === Number(id));
-      this.setState({ product })
+
+      this.state = {
+        product,
+        isEditEnabled: false
+      }
     }
   }
 
