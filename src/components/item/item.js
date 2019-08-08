@@ -7,32 +7,32 @@ import { Link as RouterLink } from 'react-router-dom'
 import Counter from '../counter/counter'
 
 const styles = {
-    item: {
-      backgroundColor: 'white',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      borderRadius: '3px',
-      minHeight: '250px',
-      padding: '15px',
-      justifyContent: 'space-between'
-    },
-    productName: {
-      color: '#666',
-      fontWeight: '400',
-      margin: '0 0 8px 0'
-    },
-    productPrice: {
-      fontSize: '22px',
-      color: '#666',
-      fontWeight: '700',
-      margin: '0 0 16px 0'
-    }
+  item: {
+    backgroundColor: 'white',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    borderRadius: '3px',
+    minHeight: '250px',
+    padding: '15px',
+    justifyContent: 'space-between'
+  },
+  productName: {
+    color: '#666',
+    fontWeight: '400',
+    margin: '0 0 8px 0'
+  },
+  productPrice: {
+    fontSize: '22px',
+    color: '#666',
+    fontWeight: '700',
+    margin: '0 0 16px 0'
   }
+}
 
 class Item extends React.Component {
   constructor(props){
-    super(props)
+    super(props);
 
     this.state = {
         currentValue: 1
@@ -42,7 +42,10 @@ class Item extends React.Component {
   handleClick = (product) =>{
     const newCartItems = {
       ...this.props.cartItems,
-      [product.name]: this.state.currentValue + this.props.cartItems[product.name]
+      [product.name]: this.state.currentValue + (this.props.cartItems[product.name]
+        ? this.props.cartItems[product.name]
+        : 0
+      )
     }
 
     this.props.updateState("cartItems", newCartItems)
@@ -67,9 +70,9 @@ class Item extends React.Component {
   }
 
   render() {
-    const { classes, product } = this.props
-    const { currentValue } = this.state
-    const { name, price, image } = product
+    const { classes, product } = this.props;
+    const { currentValue } = this.state;
+    const { name, price, image } = product;
 
     return(
         <div className={classes.item}>

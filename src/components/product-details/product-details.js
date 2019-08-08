@@ -18,27 +18,37 @@ class ProductDetails extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    const { match, products } = this.props;
+    const { params: { id } } = match;
+
+    if (products !== prevProps.products) {
+      const product = products.find(p => p.id === Number(id));
+      this.setState({ product })
+    }
+  }
+
   enableEdit = () => {
     this.setState(prevState => ({
       isEditEnabled: !prevState.isEditEnabled
     }))
   }
 
-  onNameChange = e => {
+  onChange = (e, propName) => {
     this.setState({
       product: {
         ...this.state.product,
-        name: e.target.value
+        [propName]: e.target.value
       }
     });
   }
 
-  updateProductsState = e => {
+  updateProductsState = (e, propName)=> {
     const newProductsState = this.props.products.map(product => {
       return product.id === this.state.product.id
         ? {
           ...product,
-          name: e.target.value
+          [propName]: e.target.value
         }
         : product
     });
@@ -67,10 +77,14 @@ class ProductDetails extends React.Component {
                     type="text"
                     value={ product.name }
                     disabled={ !isEditEnabled }
-                    onChange={ this.onNameChange }
-                    onBlur={ this.updateProductsState }
+                    onChange={ (e) => this.onChange(e, 'name') }
+                    onBlur={ (e) => this.updateProductsState(e, 'name') }
                   />
-                  <p>{ product.description }</p>
+                  <textarea
+                    value={ product.description }
+                    onChange={ (e) => this.onChange(e, 'description') }
+                    onBlur={ (e) => this.updateProductsState(e, 'description') }
+                  />
                   <button onClick={ this.enableEdit }>Edit</button>
                 </Grid>
               </Grid>

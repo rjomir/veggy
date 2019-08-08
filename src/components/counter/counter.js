@@ -23,26 +23,31 @@ const styles = {
     color: '#707070',
     cursor: 'pointer'
   }
-}
+};
 
-const Counter = ({ classes, currentValue, onIncrement, setNewValue, onDecrement }) =>
+const Counter = ({
+  classes,
+  currentValue,
+  onIncrement,
+  setNewValue,
+  onDecrement
+}) =>
  (
     <div className={ classes.counterWrapper }>
-    <button
-        className={ classes.button }
-        onClick={ onIncrement }>+</button>
-    <input
-        className={ classes.input }
-        type="number"
-        value={ currentValue }
-
-        products
-
-        onChange={ setNewValue }
-    />
-    <button
-        className={ classes.button }
-        onClick={ onDecrement }>-</button>
+      <button
+          className={ classes.button }
+          onClick={ onIncrement }
+      >+</button>
+      <input
+          className={ classes.input }
+          type="number"
+          value={ currentValue }
+          onChange={ setNewValue }
+      />
+      <button
+          className={ classes.button }
+          onClick={ onDecrement }
+      >-</button>
     </div>
 )
 
