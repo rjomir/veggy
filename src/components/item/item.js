@@ -39,16 +39,17 @@ class Item extends React.Component {
     }
   }
 
-  handleClick = (product) =>{
-    const newCartItems = {
-      ...this.props.cartItems,
-      [product.name]: this.state.currentValue + (this.props.cartItems[product.name]
-        ? this.props.cartItems[product.name]
-        : 0
-      )
-    }
+  addToCart = p => {
+    const newCartItems = this.props.products.map(product => {
+      return product.id === p.id
+        ? {
+          ...product,
+          quantity: !product.quantity ? 1 : product.quantity + 1
+        }
+        : product
+    });
 
-    this.props.updateState("cartItems", newCartItems)
+    this.props.updateState("products", newCartItems)
   }
 
   setNewValue = ({ target: value }) => {
@@ -98,7 +99,7 @@ class Item extends React.Component {
               variant="contained"
               color="primary"
               style={{marginTop: '15px'}}
-              onClick={() => this.handleClick(product)}
+              onClick={() => this.addToCart(product)}
           >
               Add To Cart
           </Button>

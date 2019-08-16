@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core";
 
 import Header from './header'
 import Footer from './footer'
-import ProductList from '../product-list/product-list';
+import { ProductList } from '../product-list/product-list';
 import ProductDetails from '../product-details/product-details';
 
 const styles = {
@@ -20,26 +20,26 @@ const styles = {
 }
 
 const Layout = props => {
-    const { classes, ...otherProps } = props
+  const { classes } = props
 
-    console.log(otherProps)
-
-    return (<Fragment>
-            <Header { ...otherProps }/>
-            <BrowserRouter>
-                <Switch>
-                    <Route render={()=>
-                        <div className={ classes.listWrapper }>
-                            <ProductList { ...otherProps }/>
-                        </div>
-                    } exact path="/" />
-                    <Route path="/product/:id" render={(params) =>
-                     <ProductDetails { ...otherProps } { ...params} />
-                    } />
-                </Switch>
-            </BrowserRouter>
-            <Footer/>
-    </Fragment>)
+  return (
+    <Fragment>
+      <Header />
+      <BrowserRouter>
+        <Switch>
+          <Route render={()=>
+            <div className={ classes.listWrapper }>
+              <ProductList />
+            </div>
+          } exact path="/" />
+          <Route path="/product/:id" render={(params) =>
+           <ProductDetails { ...params} />
+          } />
+        </Switch>
+      </BrowserRouter>
+      <Footer/>
+  </Fragment>
+  )
 }
 
 export default withStyles(styles)(Layout)

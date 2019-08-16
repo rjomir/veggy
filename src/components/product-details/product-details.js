@@ -1,50 +1,33 @@
-import React from 'react'
+import React, { useCallback, useContext, useEffect } from 'react'
 import Grid from "@material-ui/core/Grid";
 
-class ProductDetails extends React.Component {
-  constructor(props) {
-    super(props)
+import AppContext from "../AppContext";
 
-    if (props) {
-      const { match, products } = props;
+const ProductDetails = ({ match }) => {
+  const [product, setProduct] = React.useState(null);
+  const [isEditEnabled, setEnableStatus] = React.useState(false);
+  const appState = useContext(AppContext);
+  const { products, updateState } = appState;
+
+  useEffect(() => {
+    if (products && products.length > 0) {
       const { params: { id } } = match;
+      const productFromArr = products.find(p => p.id === Number(id));
 
-      const product = products.find(p => p.id === Number(id));
-
-      this.state = {
-        product,
-        isEditEnabled: false
-      }
+      if (productFromArr) setProduct(productFromArr);
     }
-  }
+  }, [products]);
 
-  componentDidUpdate(prevProps) {
-    const { match, products } = this.props;
-    const { params: { id } } = match;
+  const enableEdit = () => setEnableStatus(true);
+  const onChange = useCallback((e, propName) => {
+    setProduct({
+      ...product,
+      [propName]: e.target.value
+    })
+  }, [product]);
 
-    if (products !== prevProps.products) {
-      const product = products.find(p => p.id === Number(id));
-      this.setState({ product })
-    }
-  }
-
-  enableEdit = () => {
-    this.setState(prevState => ({
-      isEditEnabled: !prevState.isEditEnabled
-    }))
-  }
-
-  onChange = (e, propName) => {
-    this.setState({
-      product: {
-        ...this.state.product,
-        [propName]: e.target.value
-      }
-    });
-  }
-
-  updateProductsState = (e, propName)=> {
-    const newProductsState = this.props.products.map(product => {
+  const updateProductsState = useCallback((e, propName) => {
+    const newProducts = products.map(product => {
       return product.id === this.state.product.id
         ? {
           ...product,
@@ -53,46 +36,42 @@ class ProductDetails extends React.Component {
         : product
     });
 
-    this.props.updateState("products", newProductsState)
-  }
+    updateState('products', newProducts);
+  }, [products]);
 
-  render() {
-    const { product, isEditEnabled } = this.state
-
-    return (
-      <div>
-        {
-          !product
-            ? <span>Loading</span>
-            : (
-              <Grid container justify="flex-start" spacing={ 2 }>
-                <Grid item xs={ 5 }>
-                  <img src={ product.image }
-                       alt={ product.name }
-                       style={{ width: '100%' }}
-                  />
-                </Grid>
-                <Grid item xs={ 7 }>
-                  <input
-                    type="text"
-                    value={ product.name }
-                    disabled={ !isEditEnabled }
-                    onChange={ (e) => this.onChange(e, 'name') }
-                    onBlur={ (e) => this.updateProductsState(e, 'name') }
-                  />
-                  <textarea
-                    value={ product.description }
-                    onChange={ (e) => this.onChange(e, 'description') }
-                    onBlur={ (e) => this.updateProductsState(e, 'description') }
-                  />
-                  <button onClick={ this.enableEdit }>Edit</button>
-                </Grid>
+  return (
+    <div>
+      {
+        !product
+          ? <span>Loading</span>
+          : (
+            <Grid container justify="flex-start" spacing={ 2 }>
+              <Grid item xs={ 5 }>
+                <img src={ product.image }
+                     alt={ product.name }
+                     style={{ width: '100%' }}
+                />
               </Grid>
-            )
-        }
-      </div>
-    )
-  }
-}
+              <Grid item xs={ 7 }>
+                <input
+                  type="text"
+                  value={ product.name }
+                  disabled={ !isEditEnabled }
+                  onChange={ (e) => onChange(e, 'name') }
+                  onBlur={ (e) => updateProductsState(e, 'name') }
+                />
+                <textarea
+                  value={ product.description }
+                  onChange={ (e) => onChange(e, 'description') }
+                  onBlur={ (e) => updateProductsState(e, 'description') }
+                />
+                <button onClick={ enableEdit }>Edit</button>
+              </Grid>
+            </Grid>
+          )
+      }
+    </div>
+  )
+};
 
 export default ProductDetails
