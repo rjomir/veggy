@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import AppContext from "../AppContext";
 
 const ProductDetails = ({ match }) => {
-  const [product, setProduct] = React.useState(null);
+  const [product, setProduct] = React.useState();
   const [isEditEnabled, setEnableStatus] = React.useState(false);
   const appState = useContext(AppContext);
   const { products, updateState } = appState;
@@ -16,7 +16,7 @@ const ProductDetails = ({ match }) => {
 
       if (productFromArr) setProduct(productFromArr);
     }
-  }, [products]);
+  }, [products, match]);
 
   const enableEdit = () => setEnableStatus(true);
   const onChange = useCallback((e, propName) => {
@@ -27,17 +27,17 @@ const ProductDetails = ({ match }) => {
   }, [product]);
 
   const updateProductsState = useCallback((e, propName) => {
-    const newProducts = products.map(product => {
-      return product.id === this.state.product.id
+    const newProducts = products.map(item => {
+      return item.id === product.id
         ? {
-          ...product,
+          ...item,
           [propName]: e.target.value
         }
-        : product
+        : item
     });
 
     updateState('products', newProducts);
-  }, [products]);
+  }, [products, updateState, product]);
 
   return (
     <div>

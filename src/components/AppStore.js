@@ -1,37 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import { AppProvider } from "./AppContext";
 
-class AppStore extends React.Component {
-  updateState = (prop, newVal) => {
-    this.setState({
-      [prop]: newVal
-    })
-  };
+const AppStore = props =>{
+  const [appState, setAppState] = useState({
+    products: []
+  })
 
-  state = {
-    products: [],
-    updateState: this.updateState
-  };
-
-  componentDidMount() {
+  useEffect(() => {
     axios.get('/mock/products.json')
       .then(response => {
         const { data: { products } } = response;
-        this.setState({
-          products
-        });
+
+        updateState('products', products)
+        updateState('updateState', updateState)
       })
+  }, [])
+
+
+  const updateState = (prop, newVal) => {
+    setAppState(prevState  => ({
+      ...prevState,
+      [prop]: newVal
+    }))
   }
 
-  render() {
-    return (
-      <AppProvider value={ this.state }>
-        { this.props.children }
-      </AppProvider>
-    )
-  }
+  return (
+    <AppProvider value={ appState }>
+      { props.children }
+    </AppProvider>
+  )
 }
 
 export default AppStore
