@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import { withStyles } from '@material-ui/core/styles/index'
 import Button from '@material-ui/core/es/Button/Button'
 import Link from "@material-ui/core/Link";
@@ -30,83 +30,67 @@ const styles = {
   }
 }
 
-class Item extends React.Component {
-  constructor(props){
-    super(props);
+const Item = ({ products, updateState, classes, product }) => {
+  const [currentValue, setItemValue] = useState(1)
 
-    this.state = {
-        currentValue: 1
-    }
-  }
 
-  addToCart = p => {
-    const newCartItems = this.props.products.map(product => {
-      return product.id === p.id
-        ? {
-          ...product,
-          quantity: !product.quantity ? 1 : product.quantity + 1
-        }
-        : product
-    });
+const onIncrement = () => {
+  setItemValue(currentValue + 1)
+}
 
-    this.props.updateState("products", newCartItems)
-  }
+const onDecrement = () => 
+  currentValue > 1 ? setItemValue(currentValue - 1) : 1
 
-  setNewValue = ({ target: value }) => {
-      this.setState({
-          currentValue : value
-      })
-  }
 
-  onIncrement = () => {
-    this.setState({
-        currentValue: this.state.currentValue + 1
-    })
-  }
+const setNewValue = ({ target: value }) => {
+  setItemValue(value)
+}
 
-  onDecrement = () => {
-    this.setState({
-        currentValue: this.state.currentValue - 1
-    })
-  }
+  const addToCart = useCallback(p => {
+      const newCartItems = products.map(item => {
+        return item.id === p.id
+          ? {
+            ...item,
+            quantity: !item.quantity ? currentValue : item.quantity + currentValue
+          }
+          : item
+      });
+      updateState("products", newCartItems)
+  
+  }, [products, updateState, currentValue])
 
-  render() {
-    const { classes, product } = this.props;
-    const { currentValue } = this.state;
-    const { name, price, image } = product;
+  return(
+    <div className={classes.item}>
+      <Link component={RouterLink} to={`/product/${product.id}`}>
+        <img
+          src={product.image}
+          alt={product.name}
+          width="200"
+          height="200"
+        />
+      </Link>
+      <Link component={RouterLink} to={`/product/${product.id}`}>
+        <span> {product.name} </span>
+      </Link>
+      <span> {product.price} lei </span>
+      <Counter
+        currentValue={currentValue}
+        setNewValue={setNewValue}
+        onIncrement={onIncrement}
+        onDecrement={onDecrement}
+      />
+      <Button
+          variant="contained"
+          color="primary"
+          style={{marginTop: '15px'}}
+          onClick={() => addToCart(product)}
+      >
+          Add To Cart
+      </Button>
+    </div>
 
-    return(
-        <div className={classes.item}>
-          <Link component={RouterLink} to={`/product/${product.id}`}>
-            <img
-              src={image}
-              alt={name}
-              width="200"
-              height="200"
-            />
-          </Link>
-          <Link component={RouterLink} to={`/product/${product.id}`}>
-            <span> {name} </span>
-          </Link>
-          <span> {price} lei </span>
-          <Counter
-            currentValue={currentValue}
-            setNewValue={this.setNewValue}
-            onIncrement={this.onIncrement}
-            onDecrement={this.onDecrement}
-          />
-          <Button
-              variant="contained"
-              color="primary"
-              style={{marginTop: '15px'}}
-              onClick={() => this.addToCart(product)}
-          >
-              Add To Cart
-          </Button>
-        </div>
-
-    )
-  }
+)
 }
 
 export default withStyles(styles)(Item)
+
