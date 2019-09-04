@@ -1,13 +1,18 @@
 import React, { useCallback, useContext, useEffect } from 'react'
+import { connect } from 'react-redux'
 import Grid from "@material-ui/core/Grid";
 
 import AppContext from "../AppContext";
 
-const ProductDetails = ({ match }) => {
+const ProductDetails = ({ match, products }) => {
   const [product, setProduct] = React.useState();
+  const appState = useContext(AppContext)
+
+  console.log(products)
+
+  const { updateState } = appState
+
   const [isEditEnabled, setEnableStatus] = React.useState(false);
-  const appState = useContext(AppContext);
-  const { products, updateState } = appState;
 
   useEffect(() => {
     if (products && products.length > 0) {
@@ -74,4 +79,8 @@ const ProductDetails = ({ match }) => {
   )
 };
 
-export default ProductDetails
+const mapStateToProps = (state) => ({
+  products: state.products
+})
+
+export default connect(mapStateToProps, null)(ProductDetails)
