@@ -1,16 +1,15 @@
-import { PRODUCTS } from "../actions/types";
-
+import { CART } from "../actions/types";
 
 const reducer = (state = [], action) => {
     switch(action.type){
-        case PRODUCTS.ADD: 
+        case CART.ADD: 
             return [
                 ...state,
                 action.payload
             ]
 
-        case PRODUCTS.UPDATE:
-            return action.payload
+        case CART.REMOVE:
+            return state
 
         default:
             return state

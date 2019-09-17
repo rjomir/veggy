@@ -2,16 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { cartItemsTotalCostSelector } from '../../redux/selectors/cart-modal-selectors'
+
+import { connect } from 'react-redux'
 
 import CartItem from "../cart-item/cartItem";
 
-function CartModal(props) {
-  const {onClose, cartProducts = [], open} = props;
-
+function CartModal({onClose, cartItems, open, totalCost}) {
   const handleClose = () => onClose();
-
-  const total = cartProducts.reduce((sum, {price}) => sum + price, 0);
-
+  
   return (
       <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
         <DialogTitle id="simple-dialog-title">Cart</DialogTitle>
@@ -24,20 +23,14 @@ function CartModal(props) {
             borderTop: '1px solid #ccc',
             borderBottom: '1px solid #ccc'
           }}>
-            {
-              cartProducts
-                ? cartProducts.map((product, i) => {
-                  return <CartItem key={i + 1} cartItem={product} />
-                })
-                : null
-            }
+ 
           </div>
           <div style={{
             display: 'flex',
             justifyContent: 'flex-end',
             marginTop: '5px'
           }}>
-            Total:&nbsp;<b>{total} Lei</b>
+            Total:&nbsp;<b>{totalCost} Lei</b>
           </div>
         </div>
       </Dialog>
@@ -47,7 +40,15 @@ function CartModal(props) {
 CartModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  cartProducts: PropTypes.array
+  cartItems: PropTypes.array
 };
 
-export default CartModal;
+CartModal.defaultProps = {
+  cartItems: []
+}
+
+const mapStateToProps = state =>({
+  totalCost: cartItemsTotalCostSelector(state)
+})
+
+export default connect(mapStateToProps)(CartModal);

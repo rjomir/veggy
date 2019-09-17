@@ -1,14 +1,6 @@
 import { createStore } from 'redux'
 import rootReducer from './reducers'
 
+const store = createStore(rootReducer, window.devToolsExtension ? window.devToolsExtension() : f => f )
 
-
-  let store = createStore(rootReducer, window.devToolsExtension ? window.devToolsExtension() : f => f )
-
-  window.store = store
-
-  export default store
-
-  store.subscribe(() => console.log(store.getState()))
-
-  store.dispatch({ type: 'INCREMENT' })
+export default store

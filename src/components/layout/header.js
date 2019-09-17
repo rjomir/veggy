@@ -3,21 +3,15 @@ import PropTypes from 'prop-types';
 import Badge from '@material-ui/core/Badge';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import IconButton from "@material-ui/core/IconButton";
-
+import {connect} from 'react-redux'
 import CartModal from "../cart-modal/CartModal";
 import AppContext from "../AppContext";
 
-const Header = () => {
+const Header = ({ cartItems }) => {
   const [open, setOpen] = React.useState(false);
-  const appState = useContext(AppContext);
-  const { products } = appState;
-
-  const cartProducts = products
-    ? products.filter(p => p.quantity && p.quantity !== 0)
-    : [];
 
   const handleClickOpen = () => {
-    if (cartProducts.length === 0) return;
+    if (cartItems.length === 0) return;
 
     setOpen(true);
   };
@@ -36,13 +30,13 @@ const Header = () => {
       }}>
         <IconButton aria-label="cart" color="primary" onClick={ handleClickOpen } href="#">
           <Badge
-            badgeContent={ cartProducts.length }
+            badgeContent={ cartItems.length }
             color="primary"
           >
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
-        <CartModal open={ open } onClose={ handleClose } cartProducts={ cartProducts } />
+        <CartModal open={ open } onClose={ handleClose } cartItems={ cartItems } />
       </div>
   )
 };
@@ -51,4 +45,8 @@ Header.propTypes = {
   open: PropTypes.bool
 };
 
-export default Header
+const mapStateToProps = state => ({
+  cartItems: state.cartItems
+})
+
+export default connect(mapStateToProps)(Header)

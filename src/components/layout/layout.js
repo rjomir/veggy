@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core";
 
 import Header from './header'
 import Footer from './footer'
-import { ProductList } from '../product-list/product-list';
+import ProductList from '../product-list/product-list';
 import ProductDetails from '../product-details/product-details';
 
 const styles = {

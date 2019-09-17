@@ -3,7 +3,8 @@ import { withStyles } from '@material-ui/core/styles/index'
 import Button from '@material-ui/core/es/Button/Button'
 import Link from "@material-ui/core/Link";
 import { Link as RouterLink } from 'react-router-dom'
-
+import { addCartItem } from '../../redux/actions/cart-items-actions'
+import { connect } from 'react-redux'
 import Counter from '../counter/counter'
 
 const styles = {
@@ -30,7 +31,7 @@ const styles = {
   }
 }
 
-const Item = ({ products, updateState, classes, product }) => {
+const Item = ({ onAddToCart, classes, product }) => {
   const [currentValue, setItemValue] = useState(1)
 
 
@@ -46,18 +47,13 @@ const setNewValue = ({ target: value }) => {
   setItemValue(value)
 }
 
-  const addToCart = useCallback(p => {
-      const newCartItems = products.map(item => {
-        return item.id === p.id
-          ? {
-            ...item,
-            quantity: !item.quantity ? currentValue : item.quantity + currentValue
-          }
-          : item
-      });
-      updateState("products", newCartItems)
-  
-  }, [products, updateState, currentValue])
+  const addToCart = product => {
+    onAddToCart({
+      id: product.id,
+      name: product.name,
+      quantity: currentValue
+    })
+  }
 
   return(
     <div className={classes.item}>
@@ -89,8 +85,12 @@ const setNewValue = ({ target: value }) => {
       </Button>
     </div>
 
-)
+  )
 }
 
-export default withStyles(styles)(Item)
+const mapDispatchToProps = {
+  onAddToCart: addCartItem
+}
+
+export default connect(null, mapDispatchToProps)(withStyles(styles)(Item))
 

@@ -1,6 +1,13 @@
-import { PRODUCT } from "./types";
+import { PRODUCTS } from "./types";
 
 export const addProduct = payload => ({
-    type: PRODUCT.ADD,
+    type: PRODUCTS.ADD,
     payload: { name: "AAAA " } 
 })
+
+export const updateProducts = (products = []) => ({
+    type: PRODUCTS.UPDATE,
+    payload: products
+})
+
+export default undefined
