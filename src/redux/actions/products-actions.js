@@ -2,12 +2,22 @@ import { PRODUCTS } from "./types";
 
 export const addProduct = payload => ({
     type: PRODUCTS.ADD,
-    payload: { name: "AAAA " } 
+    payload
 })
 
-export const updateProducts = (products = []) => ({
+export const updateProduct = payload => ({
     type: PRODUCTS.UPDATE,
-    payload: products
+    payload
+})
+
+export const removeProduct = id => ({
+    type: PRODUCTS.REMOVE,
+    id
+})
+
+export const persistProducts = payload => ({
+    type: PRODUCTS.PERSIST,
+    payload
 })
 
 export default undefined

@@ -4,12 +4,10 @@ import Grid from '@material-ui/core/Grid'
 
 import Item from '../item/item'
 import { connect } from 'react-redux';
-import { updateProducts } from '../../redux/actions/products-actions'
+import { persistProducts } from '../../redux/actions/products-actions'
 
-const ProductList = ({ onUpdateProducts }) => {
+const ProductList = ({ onPersistProducts }) => {
   const [products, setProducts] = useState([])
-
-  console.log("IN PRODUCT LIST")
 
   useEffect(() => {
     axios.get('/mock/products.json')
@@ -17,7 +15,7 @@ const ProductList = ({ onUpdateProducts }) => {
         const { data: { products } } = response;
 
         setProducts(products)
-        onUpdateProducts(products)
+        onPersistProducts(products)
       })
   }, [])
 
@@ -41,7 +39,7 @@ const ProductList = ({ onUpdateProducts }) => {
 }
 
 const mapDispatchToProps = {
-  onUpdateProducts: updateProducts
+  onPersistProducts: persistProducts
 }
 
 export default connect(null, mapDispatchToProps)(ProductList)

@@ -2,16 +2,8 @@ import React, { useCallback, useContext, useEffect } from 'react'
 import { connect } from 'react-redux'
 import Grid from "@material-ui/core/Grid";
 
-import AppContext from "../AppContext";
-
 const ProductDetails = ({ match, products }) => {
   const [product, setProduct] = React.useState();
-  const appState = useContext(AppContext)
-
-  console.log(products)
-
-  const { updateState } = appState
-
   const [isEditEnabled, setEnableStatus] = React.useState(false);
 
   useEffect(() => {
@@ -23,26 +15,11 @@ const ProductDetails = ({ match, products }) => {
     }
   }, [products, match]);
 
-  const enableEdit = () => setEnableStatus(true);
+  const enableEdit = () => setEnableStatus(true)
+
   const onChange = useCallback((e, propName) => {
-    setProduct({
-      ...product,
-      [propName]: e.target.value
-    })
+      //CEVA INTERESANT
   }, [product]);
-
-  const updateProductsState = useCallback((e, propName) => {
-    const newProducts = products.map(item => {
-      return item.id === product.id
-        ? {
-          ...item,
-          [propName]: e.target.value
-        }
-        : item
-    });
-
-    updateState('products', newProducts);
-  }, [products, updateState, product]);
 
   return (
     <div>
@@ -63,12 +40,12 @@ const ProductDetails = ({ match, products }) => {
                   value={ product.name }
                   disabled={ !isEditEnabled }
                   onChange={ (e) => onChange(e, 'name') }
-                  onBlur={ (e) => updateProductsState(e, 'name') }
+                  //onBlur={  }
                 />
                 <textarea
                   value={ product.description }
                   onChange={ (e) => onChange(e, 'description') }
-                  onBlur={ (e) => updateProductsState(e, 'description') }
+                  //onBlur={ }
                 />
                 <button onClick={ enableEdit }>Edit</button>
               </Grid>

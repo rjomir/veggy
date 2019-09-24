@@ -9,7 +9,7 @@ const reducer = (state = [], action) => {
                 action.payload
             ]
 
-        case PRODUCTS.UPDATE:
+        case PRODUCTS.PERSIST:
             return action.payload
 
         default:
