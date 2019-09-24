@@ -3,12 +3,13 @@ import axios from "axios";
 import Grid from '@material-ui/core/Grid'
 
 import Item from '../item/item'
-import { AppConsumer } from "../AppContext";
 import { connect } from 'react-redux';
 import { updateProducts } from '../../redux/actions/products-actions'
 
 const ProductList = ({ onUpdateProducts }) => {
   const [products, setProducts] = useState([])
+
+  console.log("IN PRODUCT LIST")
 
   useEffect(() => {
     axios.get('/mock/products.json')
@@ -21,10 +22,7 @@ const ProductList = ({ onUpdateProducts }) => {
   }, [])
 
 
-  return (<AppConsumer>
-      {
-        ({ products, updateState }) => (
-          <Grid container justify="flex-start" spacing={2}>
+  return (<Grid container justify="flex-start" spacing={2}>
             {
               products.map(product => (
                 <Grid
@@ -40,9 +38,6 @@ const ProductList = ({ onUpdateProducts }) => {
             }
           </Grid>
         )
-      }
-    </AppConsumer>
-  )
 }
 
 const mapDispatchToProps = {

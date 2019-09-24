@@ -6,9 +6,9 @@ import { cartItemsTotalCostSelector } from '../../redux/selectors/cart-modal-sel
 
 import { connect } from 'react-redux'
 
-import CartItem from "../cart-item/cartItem";
-
 function CartModal({onClose, cartItems, open, totalCost}) {
+  console.log(cartItems)
+
   const handleClose = () => onClose();
   
   return (
