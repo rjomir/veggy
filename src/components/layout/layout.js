@@ -6,6 +6,7 @@ import Header from './header'
 import Footer from './footer'
 import ProductList from '../product-list/product-list';
 import ProductDetails from '../product-details/product-details';
+import Snack from '../snack-bar/SnackBar'
 
 const styles = {
     bodyWrapper: {
@@ -24,6 +25,7 @@ const Layout = props => {
 
   return (
     <Fragment>
+      <Snack/>
       <Header />
       <BrowserRouter>
         <Switch>

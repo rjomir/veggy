@@ -18,8 +18,14 @@ const ProductDetails = ({ match, products }) => {
   const enableEdit = () => setEnableStatus(true)
 
   const onChange = useCallback((e, propName) => {
+    console.log('onChange')
+    console.log({value : e.target.value})
+    console.log({propName})
+
       //CEVA INTERESANT
   }, [product]);
+
+  console.log({product})
 
   return (
     <div>
@@ -34,7 +40,7 @@ const ProductDetails = ({ match, products }) => {
                      style={{ width: '100%' }}
                 />
               </Grid>
-              <Grid item xs={ 7 }>
+              <Grid style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}} item xs={ 7 }>
                 <input
                   type="text"
                   value={ product.name }
@@ -43,6 +49,7 @@ const ProductDetails = ({ match, products }) => {
                   //onBlur={  }
                 />
                 <textarea
+                  rows={15}
                   value={ product.description }
                   onChange={ (e) => onChange(e, 'description') }
                   //onBlur={ }
