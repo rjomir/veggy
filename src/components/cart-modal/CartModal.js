@@ -7,10 +7,8 @@ import CartItem from '../cart-item/cartItem'
 import { connect } from 'react-redux'
 
 function CartModal({onClose, cartItems, open, totalCost}) {
-  console.log(cartItems)
-
   const handleClose = () => onClose();
-  
+
   return (
       <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
         <DialogTitle id="simple-dialog-title">Cart</DialogTitle>

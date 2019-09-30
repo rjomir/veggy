@@ -18,14 +18,8 @@ const ProductDetails = ({ match, products }) => {
   const enableEdit = () => setEnableStatus(true)
 
   const onChange = useCallback((e, propName) => {
-    console.log('onChange')
-    console.log({value : e.target.value})
-    console.log({propName})
-
       //CEVA INTERESANT
   }, [product]);
-
-  console.log({product})
 
   return (
     <div>
