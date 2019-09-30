@@ -1,11 +1,12 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types';
 import Badge from '@material-ui/core/Badge';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import IconButton from "@material-ui/core/IconButton";
 import {connect} from 'react-redux'
 import CartModal from "../cart-modal/CartModal";
-import AppContext from "../AppContext";
+import { cartItemsSelector } from '../../redux/selectors/cart-modal-selectors'
+
 
 const Header = ({ cartItems }) => {
   const [open, setOpen] = React.useState(false);
@@ -46,7 +47,7 @@ Header.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  cartItems: state.cartItems
+  cartItems: cartItemsSelector(state)
 })
 
 export default connect(mapStateToProps)(Header)

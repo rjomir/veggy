@@ -3,11 +3,10 @@ import axios from "axios";
 import Grid from '@material-ui/core/Grid'
 
 import Item from '../item/item'
-import { AppConsumer } from "../AppContext";
 import { connect } from 'react-redux';
-import { updateProducts } from '../../redux/actions/products-actions'
+import { persistProducts } from '../../redux/actions/products-actions'
 
-const ProductList = ({ onUpdateProducts }) => {
+const ProductList = ({ onPersistProducts }) => {
   const [products, setProducts] = useState([])
 
   useEffect(() => {
@@ -16,15 +15,12 @@ const ProductList = ({ onUpdateProducts }) => {
         const { data: { products } } = response;
 
         setProducts(products)
-        onUpdateProducts(products)
+        onPersistProducts(products)
       })
   }, [])
 
 
-  return (<AppConsumer>
-      {
-        ({ products, updateState }) => (
-          <Grid container justify="flex-start" spacing={2}>
+  return (<Grid container justify="flex-start" spacing={2}>
             {
               products.map(product => (
                 <Grid
@@ -40,13 +36,10 @@ const ProductList = ({ onUpdateProducts }) => {
             }
           </Grid>
         )
-      }
-    </AppConsumer>
-  )
 }
 
 const mapDispatchToProps = {
-  onUpdateProducts: updateProducts
+  onPersistProducts: persistProducts
 }
 
 export default connect(null, mapDispatchToProps)(ProductList)

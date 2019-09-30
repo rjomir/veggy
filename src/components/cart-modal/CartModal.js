@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { cartItemsTotalCostSelector } from '../../redux/selectors/cart-modal-selectors'
-
+import CartItem from '../cart-item/cartItem'
 import { connect } from 'react-redux'
-
-import CartItem from "../cart-item/cartItem";
 
 function CartModal({onClose, cartItems, open, totalCost}) {
   const handleClose = () => onClose();
-  
+
   return (
       <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
         <DialogTitle id="simple-dialog-title">Cart</DialogTitle>
@@ -23,7 +21,13 @@ function CartModal({onClose, cartItems, open, totalCost}) {
             borderTop: '1px solid #ccc',
             borderBottom: '1px solid #ccc'
           }}>
- 
+            {
+              cartItems
+                ? cartItems.map(item => {
+                  return <CartItem key={ item.id } cartItem={item} />
+                })
+                : null
+            }
           </div>
           <div style={{
             display: 'flex',
