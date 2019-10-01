@@ -1,22 +1,13 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import Grid from '@material-ui/core/Grid'
 
 import Item from '../item/item'
 import { connect } from 'react-redux';
-import { persistProducts } from '../../redux/actions/products-actions'
+import { fetchProducts } from '../../redux/actions/products-actions' 
 
-const ProductList = ({ onPersistProducts }) => {
-  const [products, setProducts] = useState([])
-
+const ProductList = ({ onFetchProducts, products, dispatch }) => {
   useEffect(() => {
-    axios.get('/mock/products.json')
-      .then(response => {
-        const { data: { products } } = response;
-
-        setProducts(products)
-        onPersistProducts(products)
-      })
+    onFetchProducts()
   }, [])
 
 
@@ -39,7 +30,11 @@ const ProductList = ({ onPersistProducts }) => {
 }
 
 const mapDispatchToProps = {
-  onPersistProducts: persistProducts
+  onFetchProducts: fetchProducts,
 }
 
-export default connect(null, mapDispatchToProps)(ProductList)
+const mapStateToProps = state => ({
+  products: state.products, 
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductList)

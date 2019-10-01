@@ -2,7 +2,8 @@ export const PRODUCTS = {
     ADD: 'ADD',
     REMOVE: 'REMOVE',
     UPDATE: 'UPDATE',
-    PERSIST: 'PERSIST'
+    PERSIST: 'PERSIST',
+    FETCH: 'FETCH'
 }
 
 export const CART = {

@@ -1,5 +1,9 @@
 import { PRODUCTS } from "./types";
 
+export const fetchProducts = () => ({
+    type: PRODUCTS.FETCH
+})
+
 export const addProduct = payload => ({
     type: PRODUCTS.ADD,
     payload

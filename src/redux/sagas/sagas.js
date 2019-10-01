@@ -1,10 +1,8 @@
-import { takeEvery } from 'redux-saga/effects'
-
-import { CART } from '../actions/types'
-import { watchAddProducts } from './add-products-saga'
+import { call } from 'redux-saga/effects'
+import productsSagas from './products-sagas'
 
 function* rootSaga() {
-  yield takeEvery(CART.ADD, watchAddProducts)
+  yield call(productsSagas)
 }
 
 export default rootSaga
