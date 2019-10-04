@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles/index'
 import Button from '@material-ui/core/es/Button/Button'
 import Link from "@material-ui/core/Link";
 import { Link as RouterLink } from 'react-router-dom'
-import { addCartItem } from '../../redux/actions/cart-items-actions'
+import { openModal } from '../../redux/actions/modal-actions'
 import { connect } from 'react-redux'
 import Counter from '../counter/counter'
 
@@ -31,7 +31,7 @@ const styles = {
   }
 }
 
-const Item = ({ onAddToCart, classes, product }) => {
+const Item = ({ onOpenModal, classes, product }) => {
   const [currentValue, setItemValue] = useState(1)
 
 
@@ -48,7 +48,7 @@ const setNewValue = ({ target: value }) => {
 }
 
   const addToCart = product => {
-    onAddToCart({
+    onOpenModal({
       id: product.id,
       name: product.name,
       quantity: currentValue
@@ -89,7 +89,7 @@ const setNewValue = ({ target: value }) => {
 }
 
 const mapDispatchToProps = {
-  onAddToCart: addCartItem
+  onOpenModal: openModal
 }
 
 export default connect(null, mapDispatchToProps)(withStyles(styles)(Item))
