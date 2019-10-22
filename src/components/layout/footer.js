@@ -1,9 +1,5 @@
-import React,  { Fragment } from 'react'
+import React, { Fragment } from 'react'
 
-const Footer = ({ classes }) => (
-    <Fragment>
-          "FOOTER"
-    </Fragment>
-)
+const Footer = () => <Fragment>FOOTER</Fragment>
 
 export default Footer

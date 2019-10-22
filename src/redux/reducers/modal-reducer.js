@@ -1,4 +1,4 @@
-import { MODAL } from "../actions/types";
+import { MODAL } from '../actions/types'
 
 const initialState = false
 
@@ -8,7 +8,7 @@ const modalReducer = (state = initialState, { type }) => {
       return true
 
     case MODAL.CLOSE:
-      return false  
+      return false
 
     default:
       return state
