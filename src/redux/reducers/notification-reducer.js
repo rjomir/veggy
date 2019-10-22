@@ -1,8 +1,8 @@
-import { CART } from "../actions/types";
+import { CART } from '../actions/types'
 
 const initialState = false
 
-const notificationReducer = (state = initialState, { payload, type }) => {
+const notificationReducer = (state = initialState, { type }) => {
   switch (type) {
     case CART.SHOW_NOTIFICATION:
       return !state

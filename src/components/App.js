@@ -2,6 +2,6 @@ import React from 'react'
 
 import Layout from './layout/layout'
 
-const App = () => <Layout />;
+const App = () => <Layout />
 
 export default App
