@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Typography } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
@@ -7,6 +7,9 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
+import Switch from '@material-ui/core/Switch'
+import AppContext from '../../AppContext'
+import { themes } from '../../AppStore'
 
 const drawerWidth = 240
 
@@ -36,6 +39,17 @@ const useStyles = makeStyles(theme => ({
 const CustomAppBar = ({ open, handleDrawerOpen }) => {
   const classes = useStyles()
 
+  const appState = useContext(AppContext)
+  const { theme, updateState } = appState
+
+  const handleChange = () => {
+    if (theme === themes.green) {
+      updateState('theme', themes.default)
+    } else {
+      updateState('theme', themes.green)
+    }
+  }
+
   return (
     <AppBar
       position="fixed"
@@ -54,8 +68,13 @@ const CustomAppBar = ({ open, handleDrawerOpen }) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap>
-          Drinks
+          Theme
         </Typography>
+        <Switch
+          checked={theme === themes.green}
+          onChange={handleChange}
+          value="checkedA"
+        />
       </Toolbar>
     </AppBar>
   )
