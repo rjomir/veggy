@@ -1,21 +1,19 @@
 import React, { Fragment } from 'react'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import { withStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import DrawerList from './drawer'
 import CustomAppBar from './appBar'
 import ItemList from './itemList'
 
 const drawerWidth = 240
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   root: {
     display: 'flex',
   },
@@ -50,71 +48,73 @@ const useStyles = makeStyles(theme => ({
     }),
     marginLeft: 0,
   },
-}))
-
-const Layout = ({ drinks }) => {
-  const classes = useStyles()
-  const theme = useTheme()
-  const [open, setOpen] = React.useState(false)
-  console.log(drinks)
-
-  const handleDrawerOpen = () => {
-    setOpen(true)
-  }
-
-  const handleDrawerClose = () => {
-    setOpen(false)
-  }
-
-  return (
-    <Fragment>
-      <div className={classes.root}>
-        <CssBaseline />
-        <CustomAppBar open={open} handleDrawerOpen={handleDrawerOpen} />
-        <Drawer
-          className={classes.drawer}
-          variant="persistent"
-          anchor="left"
-          open={open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <div className={classes.drawerHeader}>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'ltr' ? (
-                <ChevronLeftIcon />
-              ) : (
-                <ChevronRightIcon />
-              )}
-            </IconButton>
-          </div>
-          <Divider />
-          <DrawerList />
-          <Divider />
-        </Drawer>
-        <main
-          className={clsx(classes.content, {
-            [classes.contentShift]: open,
-          })}
-        >
-          <div className={classes.drawerHeader} />
-          <ItemList />
-        </main>
-      </div>
-    </Fragment>
-  )
-}
-
-const mapStateToProps = state => ({
-  drinks: state.drink.items,
 })
 
-Layout.propTypes = {
-  drinks: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+class Layout extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      open: false,
+    }
+  }
+
+  handleDrawerOpen = () => {
+    this.setState(() => ({
+      open: true,
+    }))
+  }
+
+  handleDrawerClose = () => {
+    this.setState(() => ({
+      open: false,
+    }))
+  }
+
+  render() {
+    const { classes } = this.props
+    const { open } = this.state
+    return (
+      <Fragment>
+        <div className={classes.root}>
+          <CssBaseline />
+          <CustomAppBar
+            open={open}
+            handleDrawerOpen={() => this.handleDrawerOpen()}
+          />
+          <Drawer
+            className={classes.drawer}
+            variant="persistent"
+            anchor="left"
+            open={open}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          >
+            <div className={classes.drawerHeader}>
+              <IconButton onClick={() => this.handleDrawerClose()}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </div>
+            <Divider />
+            <DrawerList />
+            <Divider />
+          </Drawer>
+          <main
+            className={clsx(classes.content, {
+              [classes.contentShift]: open,
+            })}
+          >
+            <div className={classes.drawerHeader} />
+            <ItemList />
+          </main>
+        </div>
+      </Fragment>
+    )
+  }
 }
 
-export default connect(
-  mapStateToProps,
-  null,
-)(Layout)
+Layout.propTypes = {
+  classes: PropTypes.shape({}).isRequired,
+}
+
+export default withStyles(styles)(Layout)
