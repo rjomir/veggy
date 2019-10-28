@@ -288,9 +288,13 @@ const mapDispatchToProps = {
 }
 
 DrinkDetails.propTypes = {
-  info: PropTypes.shape({ strAlcoholic: PropTypes.string }).isRequired,
+  info: PropTypes.shape({ strAlcoholic: PropTypes.string }),
   id: PropTypes.string.isRequired,
   onFetchDrinkInfo: PropTypes.func.isRequired,
+}
+
+DrinkDetails.defaultProps = {
+  info: {},
 }
 
 export default connect(
