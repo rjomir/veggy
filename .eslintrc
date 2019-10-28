@@ -15,5 +15,10 @@
   "parserOptions": {
     "sourceType": "module",
     "allowImportExportEverywhere": true
-  }
+  },
+"env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true
+  },
 }

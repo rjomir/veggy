@@ -1,7 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { fetchDrinks } from '../redux/actions/drinks-actions'
+import Layout from './layout'
 
-import Layout from './layout/layout'
+const App = ({ onFetchDrinks }) => {
+  useEffect(() => {
+    onFetchDrinks()
+  }, [onFetchDrinks])
+  return <Layout />
+}
 
-const App = () => <Layout />
+App.propTypes = {
+  onFetchDrinks: PropTypes.func.isRequired,
+}
 
-export default App
+const mapDispatchToProps = {
+  onFetchDrinks: fetchDrinks,
+}
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(App)

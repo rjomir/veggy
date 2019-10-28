@@ -1,22 +1,10 @@
-export const PRODUCTS = {
-  ADD: 'ADD',
-  REMOVE: 'REMOVE',
-  UPDATE: 'UPDATE',
-  PERSIST: 'PERSIST',
-  FETCH: 'FETCH',
+export const DRINKS = {
+  FETCH: 'FETCH_DRINKS',
+  PERSIST: 'PERSIST_DRINKS',
+  TYPE: 'UPDATE_DRINK_TYPE',
 }
 
-export const CART = {
-  ADD: 'ADD_CART_ITEM',
-  REMOVE: 'REMOVE_CART_ITEM',
-  SHOW_NOTIFICATION: 'SHOW_CART_NOTIFICATION',
+export const DRINKSINFO = {
+  FETCH: 'FETCH_DRINK_INFO',
+  PERSIST: 'UPERSIST_DRINK_INFO',
 }
-
-export const MODAL = {
-  OPEN: 'OPEN',
-  CLOSE: 'CLOSE',
-  CONFIRMED: 'CONFIRMED',
-  CANCELED: 'CANCELED',
-}
-
-export default undefined

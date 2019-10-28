@@ -1,12 +1,8 @@
 import { combineReducers } from 'redux'
-import productsReducer from './products-reducer'
-import cartItemsReducer from './cart-items-reducer'
-import notificationReducer from './notification-reducer'
-import modalReducer from './modal-reducer'
+import drinksReducer from './drink-reducer'
+import drinkInfoReducer from './drink-info-reducer'
 
 export default combineReducers({
-  products: productsReducer,
-  cartItems: cartItemsReducer,
-  hasNewNotification: notificationReducer,
-  modal: modalReducer,
+  drink: drinksReducer,
+  info: drinkInfoReducer,
 })
