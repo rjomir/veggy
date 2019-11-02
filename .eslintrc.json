@@ -1,0 +1,26 @@
+{
+  "extends": [
+    "airbnb",
+    "prettier"
+  ],
+  "rules": {
+    "semi": "off",
+    "react/jsx-filename-extention": [
+      0
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": [
+          "src"
+        ]
+      }
+    }
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": true
+  }
+}
