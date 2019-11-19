@@ -1,51 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import Grid from '@material-ui/core/Grid';
-import axios from 'axios'
-import Item from './components/item/item'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
 
-class App extends React.Component {
-  constructor(props){
-    super(props)
+ReactDOM.render(<App />, document.getElementById('root'));
 
-    this.state = {
-      products: []
-    }
-  }
-
-  componentDidMount(){
-    const self = this
-
-    axios.get('/mock/products.json')
-      .then(function (response) {
-        self.setState({
-          products: response.data.products
-        })
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .finally(function () {
-        // always executed
-      });
-  }
-
-  render(){
-    const { classes } = this.props;
-
-    return (<div>
-      <Grid container spacing={1}>
-        { 
-          this.state.products.map((item) => {
-            return <Grid container item xs={3} spacing={0}>
-              <Item product={item}/>
-            </Grid>
-          })
-        }
-      </Grid>
-    </div>)
-  }
-}
-
-ReactDOM.render(<App />, document.getElementById('root'))
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
