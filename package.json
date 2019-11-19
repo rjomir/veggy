@@ -1,65 +1,24 @@
 {
-  "name": "veggy",
+  "name": "adidas",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "4.2.0",
-    "@material-ui/icons": "^4.2.1",
-    "axios": "0.19.0",
+    "@material-ui/core": "^4.5.1",
+    "axios": "^0.19.0",
     "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
     "react-redux": "^7.1.1",
-    "react-router-dom": "^5.0.0",
-    "react-scripts": "3.0.1",
-    "redux": "^4.0.4",
-    "redux-devtools-extension": "^2.13.8",
-    "redux-saga": "^1.1.1",
-    "reselect": "4.0.0"
-  },
-  "devDependencies": {
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb": "^17.1.1",
-    "eslint-plugin-import": "^2.18.0",
-    "prettier": "^1.18.2",
-    "eslint-config-prettier": "^4.1.0",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.12.4",
-    "prettier-eslint-cli": "^4.7.1",
-    "husky": "^1.3.1",
-    "lint-staged": "^8.1.3"
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.2.0",
+    "react-spinners": "^0.6.1",
+    "redux": "^4.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "eslint": "eslint src/",
-    "eslint:fix": "eslint --fix src/",
-    "prettier": "prettier --write \"**/*.js\""
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "linters": {
-      "*.js": [
-        "prettier --write",
-        "eslint --fix",
-        "git add"
-      ],
-      "*.{css,scss,less,md,json}": [
-        "prettier --write",
-        "git add"
-      ]
-    },
-    "ignore": [
-      "node_modules",
-      "dist",
-      "package-lock.json"
-    ]
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
